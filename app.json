@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "XLR",
+    "slug": "parcel-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/xlr.jpg",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyA9LQIZrsAqgJ4HTa3SLRB9eeoDc45Vy8o"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/xlr.jpg",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.shashikumae.parcelapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA9LQIZrsAqgJ4HTa3SLRB9eeoDc45Vy8o"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f3b541af-42f4-4d37-83fb-abc972063b6c"
+      }
+    }
+  }
+}
