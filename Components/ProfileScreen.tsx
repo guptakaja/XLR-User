@@ -73,7 +73,7 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Profile</Text>
+      
 
       <View style={styles.fieldWrapper}>
         <Text style={styles.label}>Name</Text>
@@ -116,8 +116,10 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: '5%',
-    paddingTop: '10%',
+    paddingTop: '5%',
     backgroundColor: '#000', // Black background
+    borderTopColor:"white",
+    borderTopWidth:1
   },
   loaderContainer: {
     flex: 1,
@@ -125,16 +127,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#000', // Black background
   },
-  title: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#FFD700', // Golden title
-    marginBottom: '5%',
-    paddingBottom: '2%',
-    textAlign: 'center', // start align
-    borderBottomWidth: 1,
-    borderBottomColor: '#FFD700', // Golden border
-  },
+  
   profileItem: {
     marginBottom: '4%',
     backgroundColor: '#fff', // White card-like background

@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Feather, FontAwesome5, MaterialIcons, Ionicons } from '@expo/vector-icons'; // 👈 importing icons
+import {
+  Feather,
+  FontAwesome5,
+  MaterialIcons,
+  Ionicons,
+} from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen() {
@@ -12,22 +23,20 @@ export default function HomeScreen() {
   const handleToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  const handleLogout = () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Logout', style: 'destructive', onPress: async () => {
-            await AsyncStorage.removeItem('userToken');
-            navigation.replace('Login');
-          }
-        },
-      ]
-    );
-  };
-  
 
+  const handleLogout = () => {
+    Alert.alert('Logout', 'Are you sure you want to logout?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Logout',
+        style: 'destructive',
+        onPress: async () => {
+          await AsyncStorage.removeItem('userToken');
+          navigation.replace('Login');
+        },
+      },
+    ]);
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -39,103 +48,142 @@ export default function HomeScreen() {
         <Text style={styles.navbarTitle}>Home</Text>
       </View>
 
-      {/* Left side Drawer Menu */}
-      {isMenuOpen ? (
-          <ScrollView contentContainerStyle={styles.menuContainer}>
+      {/* Main Content */}
+      <ScrollView contentContainerStyle={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('SendParcelScreen', { destination: 'Dubai' })
+          }
+        >
+          <Text style={styles.buttonText}>Send a Parcel to Dubai in 7 Hours</Text>
+        </TouchableOpacity>
 
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('ProfileScreen')}>
-            <Feather name="user" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Profile</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('TrackScreen')}>
-            <FontAwesome5 name="shipping-fast" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Track</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('ShipScreen')}>
-            <Ionicons name="airplane-outline" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Ship</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('LocationsScreen')}>
-            <Feather name="map-pin" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Locations</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('RatesScreen')}>
-            <Feather name="dollar-sign" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Rates</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('PickupScreen')}>
-            <MaterialIcons name="local-shipping" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Pickup</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('SettingsScreen')}>
-            <Feather name="settings" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Settings</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('SupportScreen')}>
-            <Feather name="help-circle" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Support</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('MessageCenterScreen')}>
-            <Feather name="message-square" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Message Center</Text>
-          </TouchableOpacity>
-      
-          <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
-            <MaterialIcons name="logout" size={20} color="#f4c542" />
-            <Text style={styles.menuText}>Logout</Text>
-          </TouchableOpacity>
-      
-        </ScrollView>
-      ) : (
-        <ScrollView contentContainerStyle={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('SendParcelScreen', { destination: 'Hyderabad' })
+          }
+        >
+          <Text style={styles.buttonText}>Send a Parcel to HYD in 7 Hours</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.orText}>OR</Text>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('PassengerRegistrationScreen')}
+        >
+          <Text style={styles.buttonText}>Fly to Dubai for Free</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('PassengerRegistrationScreen')}
+        >
+          <Text style={styles.buttonText}>Rent Your Baggage Space & Earn</Text>
+        </TouchableOpacity>
+      </ScrollView>
+
+      {/* Overlay Drawer Menu */}
+      {isMenuOpen && (
+        <TouchableOpacity
+          style={styles.overlay}
+          activeOpacity={1}
+          onPress={handleToggle}
+        >
           <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('SendParcelScreen', { destination: 'Dubai' })}
+            activeOpacity={1}
+            style={styles.drawer}
+            onPress={(e) => e.stopPropagation()}
           >
-            <Text style={styles.buttonText}>Send a Parcel to Dubai in 7 Hours</Text>
-          </TouchableOpacity>
+            {/* Close Icon */}
+            <View style={styles.closeIconWrapper}>
+              <TouchableOpacity onPress={handleToggle}>
+                <Feather name="x" size={26} color="#f4c542" />
+              </TouchableOpacity>
+            </View>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('SendParcelScreen', { destination: 'Hyderabad' })}
-          >
-            <Text style={styles.buttonText}>Send a Parcel to HYD in 7 Hours</Text>
-          </TouchableOpacity>
+            <ScrollView contentContainerStyle={styles.menuContainer}>
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('ProfileScreen')}
+              >
+                <Feather name="user" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Profile</Text>
+              </TouchableOpacity>
 
-          <Text style={styles.orText}>OR</Text>
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('TrackScreen')}
+              >
+                <FontAwesome5 name="shipping-fast" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Track</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('PassengerRegister')}
-          >
-            <Text style={styles.buttonText}>Fly to Dubai for Free</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('PassengerListScreen')}
+              >
+                <Ionicons name="airplane-outline" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>PassengerList</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('DeliveryPartner')}
-          >
-            <Text style={styles.buttonText}>Rent Your Baggage Space & Earn</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('LocationsScreen')}
+              >
+                <Feather name="map-pin" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Locations</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.smallText}
-            onPress={() => navigation.navigate('DeliveryPartnerScreen')}
-          >
-            <Text style={{ color: '#aaa', fontSize: 12, marginTop: 20 }}>
-              Become a Delivery Partner
-            </Text>
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('RatesScreen')}
+              >
+                <Feather name="dollar-sign" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Rates</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('PickupScreen')}
+              >
+                <MaterialIcons name="local-shipping" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Pickup</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('SettingsScreen')}
+              >
+                <Feather name="settings" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Settings</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('SupportScreen')}
+              >
+                <Feather name="help-circle" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Support</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => navigation.navigate('MessageCenterScreen')}
+              >
+                <Feather name="message-square" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Message Center</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
+                <MaterialIcons name="logout" size={20} color="#f4c542" />
+                <Text style={styles.menuText}>Logout</Text>
+              </TouchableOpacity>
+            </ScrollView>
           </TouchableOpacity>
-        </ScrollView>
+        </TouchableOpacity>
       )}
     </View>
   );
@@ -154,29 +202,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     marginLeft: '5%',
-  },
-  closeText: {
-    color: '#f4c542',
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  menuContainer: {
-    flexGrow: 1,
-    backgroundColor: '#000',
-    padding: 20,
-  },
-  menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-    borderBottomColor: '#f4c542',
-    borderBottomWidth: 1,
-    paddingBottom: 8,
-  },
-  menuText: {
-    color: '#f4c542',
-    fontSize: 18,
-    marginLeft: 15,
   },
   container: {
     flexGrow: 1,
@@ -210,4 +235,40 @@ const styles = StyleSheet.create({
   smallText: {
     marginTop: '5%',
   },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    zIndex: 999,
+    flexDirection: 'row',
+  },
+  drawer: {
+    width: '50%',
+    backgroundColor: '#000',
+    height: '100%',
+    padding: 20,
+  },
+  menuContainer: {
+    paddingTop: 1,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderBottomColor: '#f4c542',
+    borderBottomWidth: 1,
+    paddingBottom: 8,
+  },
+  menuText: {
+    color: '#f4c542',
+    fontSize: 18,
+    marginLeft: 15,
+  },
+  closeIconWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  }
 });

@@ -249,8 +249,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#000",
-    borderTopColor:"white",
-    borderWidth:1
+    borderTopWidth:1,
+    borderTopColor:"white"
   },
   vehicleCard: {
     backgroundColor: "#fff",

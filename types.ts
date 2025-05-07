@@ -57,5 +57,8 @@ export type RootParamList = {
   RideConfirmedScreen:{status:any, location:any, address:any, otp:any, totalPrice:any}
   RideStartScreen:{status:any, location:any, totalPrice:any, }
   PaymentScreen:{status:any,totalPrice:any, }
+  PassengerRegistrationScreen:undefined
+  LuggageCapacityScreen:{passengerId:string}
+  PassengerListScreen:undefined
   };
   

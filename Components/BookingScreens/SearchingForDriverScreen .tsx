@@ -292,7 +292,7 @@ const SearchingForDriverScreen = () => {
             >
               <View>
                 <Image
-                  source={require('../../assets/images/shashi-bsk.png')}
+                  source={require('../../assets/images/kajal.png')}
                   style={{ width: 40, height: 40 }}
                 />
               </View>
@@ -315,7 +315,7 @@ const SearchingForDriverScreen = () => {
                   vehicleIcon = require('../../assets/images/4-wheeler.png');
                   break;
                 default:
-                  vehicleIcon = require('../../assets/images/shashi-bsk.png');
+                  vehicleIcon = require('../../assets/images/kajal.png');
               }
   
               return (
